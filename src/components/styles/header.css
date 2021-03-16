@@ -1,0 +1,69 @@
+*{
+    box-sizing: border-box;
+    padding: 0px;
+    padding: 0px;
+}
+
+.header-container{
+    background-image: url(/src/images/raindrop-woman.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-bottom-right-radius: 80px;
+    width: 100%;
+    height: 120vh;
+}
+
+.header-form--container{
+    max-width: 460px;
+    background-color: white;
+    padding: 25px;
+    margin: 0px 80px 60px;
+    border-radius: 16px;
+    font-size: 1em;
+}
+
+.top-form--container{
+    display: flex;
+    justify-content: space-between;
+}
+.top2-form--container{
+    display: flex;
+}
+
+.logo-form--container{
+    height: 2.25rem;
+    margin-top: 10px;
+}
+
+.header-form--container h2{
+    color: #bd0033
+}
+
+.text-form--container{
+    font-size: 1em;
+    line-height: 1.3em;
+}
+
+.textcolored-form--container{
+    font-size: 1em;
+    line-height: 1.3em;
+    background: #dcf9f3;
+    padding: 14px 11px;
+    border-radius: 10px;
+}
+
+.link-form-container{
+    color: #bd0033;
+    text-decoration: none;
+
+}
+
+.inputs-form--container{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+form{
+    display: grid;
+    grid-column: 1fr 1fr;
+}
