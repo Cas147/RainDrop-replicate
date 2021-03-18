@@ -1,19 +1,19 @@
 import React from 'react'
 
 import Header from "../components/Header"
+import PrincipalForm from '../components/PrincipalForm'
+import ProgressBar from '../components/ProgressBar'
 
-class Raindrop extends React.Component{
-    state={
-        error:null,
-        firstName:"",
-        lastNamer:"",
-        email:""
-    }
-    render(){
-        return(
+
+export default function Raindrop(){
+    return(
+        <div>
             <Header/>
-        )
-    }
+            {/* <ProgressBar/> */}
+            <PrincipalForm/>
+        </div>
+
+    )
 }
 
-export default Raindrop;
+

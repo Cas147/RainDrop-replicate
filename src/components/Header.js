@@ -30,13 +30,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const initialValues={
-    firstName:'',
-    lastName:'',
-    email:'',
-}
 
-export default function Header(){
+
+export default function Header(initialValues){
 
     const classes = useStyles();
 
@@ -71,7 +67,7 @@ export default function Header(){
                     <p className="text-form--container">Using the service does not lock you into any new pension schemes, at the end you will be asked to provide an email and password to securely track the results of your pension finding request. Read more about our data policy by <Link className="link-form-container" to="#">clicking here. </Link> </p>
                     <p className="textcolored-form--container">Make sure you have your <b>National Insurance number</b> handy to help us identify any lost pensions.</p>
                     <form className={classes.root}>
-                        <Grid container direction="row">
+                        <Grid container >
                                 <Grid item xs={6}>
                                     <TextField className={classes.TextField}
                                     id="outlined-basic"

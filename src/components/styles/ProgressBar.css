@@ -1,0 +1,76 @@
+.container{
+    background-color: white;
+    padding: 25px 0;
+    box-shadow: 0 10px 50px -10px rgb(0 0 0 / 33%);
+    border-radius: 20px;
+    width: 750px;
+    height: 154px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-content: space-evenly;
+    position: sticky;
+    left: calc(50% - 400px);
+}
+
+.text-fixed{
+    height: 1200px;
+}
+
+.principal{
+    position: relative;
+    bottom: 40px;
+}
+
+.circle{
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background-color: #c1c1c1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom:5px;
+    margin-left: 10px;
+}
+
+.circle img{
+    width: 20px;
+    height: 20px;
+    margin: 0 auto;
+
+}
+
+.step{
+    font-size: 12px;
+    font-weight: 500;
+    color: #a1a1a7;
+    margin: 0 auto;
+    margin-left: 10px;
+}
+
+.size{
+    width: 120px;
+    height: auto;
+}
+
+.details-container{
+    margin-left: 30px;
+}
+
+.pension-container h5{
+    margin-right: 10px;
+}
+
+.bars{
+    width: 80px;
+    height: 4px;
+    background-color: #c1c1c1;
+    align-self: center;
+    margin-left: 15px;
+
+}
+
+.progress-container{
+    display: flex;
+}
