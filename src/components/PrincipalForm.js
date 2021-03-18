@@ -1,4 +1,5 @@
 import React,{useState} from 'react';
+import {Link} from 'react-router-dom'
 
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -15,6 +16,8 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
 import './styles/PrincipalForm.css';
+import PensionSearcher from './PensionSearcher'
+import useForm from './useForm'
 
 const useStyles = makeStyles((theme) => ({
     datePiker:{
@@ -28,28 +31,21 @@ const useStyles = makeStyles((theme) => ({
         background:'#efeff2',
         height: '3em',
         width:'22em',
+        marginRight:'30px',
       },
 }));
 
 
-export default function PrincipalForm(dataInformation){
-
+export default function PrincipalForm(props){
     const classes = useStyles();
 
-    const [data, setData] = useState(dataInformation);
 
-    const handleChange = (event) => {
-        const {name, value}= event.target
-        setData({
-            ...data,
-            [name]:value
-        })
-    };
+    const convertToEvent = (name,value) =>({
+        target: {
+            name, value
+        }
+    });
 
-    const [selectedDate, setSelectedDate] = useState(new Date('2014-08-18T21:11:54'));
-    const handleDateChange = (event) => {
-        setSelectedDate(event);
-      };
     return(
         <form className="principla-form--container">
             <h2>Your Personal details</h2>
@@ -59,8 +55,9 @@ export default function PrincipalForm(dataInformation){
                     id="date-picker-dialog"
                     label="Date picker dialog"
                     format="MM/dd/yyyy"
-                    value={selectedDate}
-                    onChange={handleDateChange}
+                    name="datePicker"
+                    value={props.values.selectedDate}
+                    onChange={date => props.onChange(convertToEvent(props.values.name,date))}
                     KeyboardButtonProps={{
                         'aria-label': 'change date',
                     }}
@@ -75,8 +72,8 @@ export default function PrincipalForm(dataInformation){
                     <Select
                     labelId="demo-simple-select-outlined-label"
                     id="demo-simple-select-outlined"
-                    value={data.postCode}
-                    onChange={handleChange}
+                    value={props.values.postCode}
+                    onChange={props.onChange}
                     label="Post Code"
                     name="postCode"
                     >
@@ -94,8 +91,8 @@ export default function PrincipalForm(dataInformation){
                     label="House Number"
                     variant="outlined"
                     name="houseNumber"
-                    value={data.houseNumber}
-                    onChange={handleChange}
+                    value={props.values.houseNumber}
+                    onChange={props.onChange}
                 />
 
                 <TextField className={classes.formControl}
@@ -103,8 +100,8 @@ export default function PrincipalForm(dataInformation){
                     label="Adress Line 1"
                     variant="outlined"
                     name="adressLineOne"
-                    value={data.adressLineOne}
-                    onChange={handleChange}
+                    value={props.values.adressLineOne}
+                    onChange={props.onChange}
                 />
 
                 <TextField className={classes.formControl}
@@ -112,8 +109,8 @@ export default function PrincipalForm(dataInformation){
                     label="Adress Line 2"
                     variant="outlined"
                     name="adressLineTwo"
-                    value={data.adressLineTwo}
-                    onChange={handleChange}
+                    value={props.values.adressLineTwo}
+                    onChange={props.onChange}
                 />
 
                 <TextField className={classes.formControl}
@@ -121,19 +118,23 @@ export default function PrincipalForm(dataInformation){
                     label="City/Town"
                     variant="outlined"
                     name="city"
-                    value={data.city}
-                    onChange={handleChange}
+                    value={props.values.city}
+                    onChange={props.onChange}
                 />
             </Box>
-            <h2>Set up your Pension Searches</h2>
+            <h2>Your National Insurance Number</h2>
             <TextField className={classes.formControl}
                     id="outlined-basic"
                     label="Narional Insurance Number"
                     variant="outlined"
                     name="insuranceNumber"
-                    value={data.insuranceNumber}
-                    onChange={handleChange}
+                    value={props.values.insuranceNumber}
+                    onChange={props.onChange}
                 />
+            <h2>Set up your Pension Searches</h2>
+            <PensionSearcher />
+            <h2>Sending your results</h2>
+            <p>Once you have submitted your search, our team will find your pensions and contact you by email. By clicking submit you are agreeing to our  <Link className="link-Pform-container" to="#"> privacy policy.</Link></p>
         </form>
     )
 }

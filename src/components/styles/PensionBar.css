@@ -1,0 +1,12 @@
+.progress-container{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.progress{
+    width: 9%;
+    height: 16px;
+    border-radius: #00667d 1px solid;
+    background-color: turquoise;
+}
+

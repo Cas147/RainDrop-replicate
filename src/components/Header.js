@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 
 import './styles/header.css'
 import Logo from '../images/raindroplogo_0.png'
+import useForm from './useForm'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -27,75 +28,71 @@ const useStyles = makeStyles((theme) => ({
     margin:'10px 0',
     borderRadius: '26px',
     fontSize: '1em',
+    width:'12em',
+    color:'white',
   },
 }));
 
 
 
-export default function Header(initialValues){
+export default function Header(props){
 
+    console.log(props)
     const classes = useStyles();
 
-    const [values, setValues] = useState(initialValues);
-
-    const handleChange = (event) => {
-        const {name, value}= event.target
-        setValues({
-            ...values,
-            [name]:value
-        })
-    };
+   /*  const {values,setValues,handleChange} = useForm(initialValues) */
 
     const handleSubmit= (event) => {
         event.preventDefault();
         console.log('form was submited')
-        console.log(values)
+        console.log(props.values)
     }
     return(
         <div>
             <div className="header-container">
                 <div className="header-form--container">
                     <div className="top-form--container">
-                        <h3>Pension Hunter</h3>
+                        <h4>Pension Hunter</h4>
                         <div className="top2-form--container">
                             <p>by</p>
                             <img className="logo-form--container" src={Logo} alt="logo"></img>
                         </div>
                     </div>
-                    <h2 >Don’t miss out on lost pensions.</h2>
+                    <h3 >Don’t miss out on lost pensions.</h3>
                     <p className="text-form--container">Our <b>free</b> Pension Hunter service will search for your missing pension money sitting in previous companies or personal plans so you can put it to good use.</p>
                     <p className="text-form--container">Using the service does not lock you into any new pension schemes, at the end you will be asked to provide an email and password to securely track the results of your pension finding request. Read more about our data policy by <Link className="link-form-container" to="#">clicking here. </Link> </p>
                     <p className="textcolored-form--container">Make sure you have your <b>National Insurance number</b> handy to help us identify any lost pensions.</p>
                     <form className={classes.root}>
                         <Grid container >
-                                <Grid item xs={6}>
+                                <Grid item xs={12} sm={6}>
                                     <TextField className={classes.TextField}
                                     id="outlined-basic"
                                     label="First Name"
                                     variant="outlined"
                                     name="firstName"
-                                    value={values.firstName}
-                                    onChange={handleChange}
+                                    value={props.values.firstName}
+                                    onChange={props.onChange}
                                     />
                                 </Grid>
-                                <Grid item xs={6}>
+                                <Grid item xs={12} sm={6}>
                                     <TextField className={classes.TextField}
                                     id="outlined-basic"
                                     label="Last Name"
                                     name="lastName"
                                     variant="outlined"
-                                    value={values.lastName}
-                                    onChange={handleChange}
+                                    value={props.values.lastName}
+                                    onChange={props.onChange}
                                     />
                                 </Grid>
-                                <Grid item xs={12}>
-                                    <TextField className={classes.TextField}
+                                <Grid item xs={12} >
+                                    <TextField className={classes.TextField } fullWidth
+
                                     id="outlined-basic"
                                     label="Email"
                                     variant="outlined"
                                     name="email"
-                                    value={values.email}
-                                    onChange={handleChange}
+                                    value={props.values.email}
+                                    onChange={props.onChange}
                                     />
                                 </Grid>
                         </Grid>

@@ -35,8 +35,9 @@
     margin-top: 10px;
 }
 
-.header-form--container h2{
-    color: #bd0033
+.header-form--container h3{
+    color: #bd0033;
+    margin: 0 auto;
 }
 
 .text-form--container{
