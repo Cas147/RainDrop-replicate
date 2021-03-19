@@ -1,4 +1,4 @@
-import React,{useState, useEffect} from  'react'
+import React from  'react'
 import {Link} from 'react-router-dom'
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -8,7 +8,6 @@ import Button from '@material-ui/core/Button';
 
 import './styles/header.css'
 import Logo from '../images/raindroplogo_0.png'
-import useForm from './useForm'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -31,6 +30,13 @@ const useStyles = makeStyles((theme) => ({
     width:'12em',
     color:'white',
   },
+  TextFieldGrid:{
+      width:'98%',
+      background:'#efeff2',
+      borderRadius: 5,
+      margin:5,
+      borderColor: 'none',
+  }
 }));
 
 
@@ -63,7 +69,7 @@ export default function Header(props){
                     <p className="text-form--container">Using the service does not lock you into any new pension schemes, at the end you will be asked to provide an email and password to securely track the results of your pension finding request. Read more about our data policy by <Link className="link-form-container" to="#">clicking here. </Link> </p>
                     <p className="textcolored-form--container">Make sure you have your <b>National Insurance number</b> handy to help us identify any lost pensions.</p>
                     <form className={classes.root}>
-                        <Grid container >
+                        <Grid container  >
                                 <Grid item xs={12} sm={6}>
                                     <TextField className={classes.TextField}
                                     id="outlined-basic"
@@ -85,7 +91,7 @@ export default function Header(props){
                                     />
                                 </Grid>
                                 <Grid item xs={12} >
-                                    <TextField className={classes.TextField } fullWidth
+                                    <TextField className={classes.TextFieldGrid } fullWidth 
 
                                     id="outlined-basic"
                                     label="Email"

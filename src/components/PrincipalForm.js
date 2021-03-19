@@ -1,5 +1,4 @@
-import React,{useState} from 'react';
-import {Link} from 'react-router-dom'
+import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -17,7 +16,6 @@ import Select from '@material-ui/core/Select';
 
 import './styles/PrincipalForm.css';
 import PensionSearcher from './PensionSearcher'
-import useForm from './useForm'
 
 const useStyles = makeStyles((theme) => ({
     datePiker:{
@@ -131,10 +129,6 @@ export default function PrincipalForm(props){
                     value={props.values.insuranceNumber}
                     onChange={props.onChange}
                 />
-            <h2>Set up your Pension Searches</h2>
-            <PensionSearcher />
-            <h2>Sending your results</h2>
-            <p>Once you have submitted your search, our team will find your pensions and contact you by email. By clicking submit you are agreeing to our  <Link className="link-Pform-container" to="#"> privacy policy.</Link></p>
         </form>
     )
 }

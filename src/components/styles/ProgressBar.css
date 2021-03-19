@@ -3,14 +3,14 @@
     padding: 25px 0;
     box-shadow: 0 10px 50px -10px rgb(0 0 0 / 33%);
     border-radius: 20px;
-    width: 750px;
+    width: 850px;
     height: 154px;
     display: flex;
     justify-content: center;
     align-items: center;
     justify-content: space-evenly;
     position: sticky;
-    left: calc(50% - 400px);
+    left: calc(50% - 430px);
 }
 
 .text-fixed{
@@ -19,7 +19,7 @@
 
 .principal{
     position: relative;
-    bottom: 40px;
+    bottom: 80px;
 }
 
 .circle{
@@ -32,6 +32,10 @@
     align-items: center;
     margin-bottom:5px;
     margin-left: 10px;
+}
+
+.circleTwo{
+    background-color: yellowgreen;
 }
 
 .circle img{
@@ -50,7 +54,7 @@
 }
 
 .size{
-    width: 120px;
+    width: 150px;
     height: auto;
 }
 
@@ -67,8 +71,11 @@
     height: 4px;
     background-color: #c1c1c1;
     align-self: center;
-    margin-left: 15px;
+    margin-right:15px ;
+}
 
+.barsTwo{
+    background-color: yellowgreen;
 }
 
 .progress-container{

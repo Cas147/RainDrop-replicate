@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -7,6 +7,12 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Box from '@material-ui/core/Box';
+import 'date-fns';
+import {
+    MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
+import DateFnsUtils from "@date-io/date-fns"
 
 import PensionBar from './pensionBar';
 
@@ -30,17 +36,14 @@ const useStyles = makeStyles((theme) => ({
 export default function PensionForm(props){
     const classes = useStyles();
 
-    const [data, setData] = useState('');
+    const convertToEvent = (name,value) =>({
+        target: {
+            name, value
+        }
+    });
 
-    const handleChange = (event) => {
-        const {name, value}= event.target
-        setData({
-            ...data,
-            [name]:value
-        })
-    };
     console.log(props.radio)
-    if(props.radio==='workplace'){
+    if(props.values==='workplace'){
     return(
         <div>
             <Box
@@ -51,8 +54,8 @@ export default function PensionForm(props){
                     <Select
                     labelId="demo-simple-select-outlined-label"
                     id="demo-simple-select-outlined"
-                    value={data.pensionProvider}
-                    onChange={handleChange}
+                    value={props.values.pensionProvider}
+                    onChange={props.onChange}
                     label="Pension Provider"
                     name="pensionProvider"
                     >
@@ -70,8 +73,8 @@ export default function PensionForm(props){
                     label="Plan Number (Not compulsory)"
                     variant="outlined"
                     name="houseNumber"
-                    value={data.planNumber}
-                    onChange={handleChange}
+                    value={props.values.planNumber}
+                    onChange={props.onChange}
                 />
 
                 <TextField className={classes.formControl}
@@ -79,8 +82,8 @@ export default function PensionForm(props){
                     label="Employer"
                     variant="outlined"
                     name="Employer"
-                    value={data.employer}
-                    onChange={handleChange}
+                    value={props.values.employer}
+                    onChange={props.onChange}
                 />
 
                 <FormControl variant="outlined" className={classes.formControl}>
@@ -88,8 +91,8 @@ export default function PensionForm(props){
                     <Select
                     labelId="demo-simple-select-outlined-label"
                     id="demo-simple-select-outlined"
-                    value={data.EmployementType}
-                    onChange={handleChange}
+                    value={props.values.EmployementType}
+                    onChange={props.onChange}
                     label="Employement type (Not compulsory)"
                     name="EmployementType"
                     >
@@ -102,29 +105,41 @@ export default function PensionForm(props){
                     </Select>
                 </FormControl>
 
-                <TextField className={classes.formControl}
-                    id="outlined-basic"
-                    label="City/Town"
-                    variant="outlined"
-                    name="city"
-                    value={data.city}
-                    onChange={handleChange}
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <KeyboardDatePicker className={classes.formControl}
+                    margin="normal"
+                    id="date-picker-dialog"
+                    label="Aproximate start date (Not compulsory)"
+                    format="MM/yyyy"
+                    name="startDate"
+                    value={props.values.selectedDate}
+                    onChange={date => props.onChange(convertToEvent(props.values.startDate,date))}
+                    KeyboardButtonProps={{
+                        'aria-label': 'change date',
+                    }}
                 />
+                </MuiPickersUtilsProvider>
 
-                <TextField className={classes.formControl}
-                    id="outlined-basic"
-                    label="Narional Insurance Number"
-                    variant="outlined"
-                    name="insuranceNumber"
-                    value={data.insuranceNumber}
-                    onChange={handleChange}
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <KeyboardDatePicker className={classes.formControl}
+                    margin="normal"
+                    id="date-picker-dialog"
+                    label="Aproximate start date (Not compulsory)"
+                    format="MM/yyyy"
+                    name="endDate"
+                    value={props.values.selectedDate}
+                    onChange={date => props.onChange(convertToEvent(props.values.endDate,date))}
+                    KeyboardButtonProps={{
+                        'aria-label': 'change date',
+                    }}
                 />
+                </MuiPickersUtilsProvider>
             </Box>
             <p>The more information you give us, the greater the likelihood of finding the pension (see strength below)</p>
             <PensionBar/>
         </div>
     )}
-    if(props.radio==='personal'){
+    if(props.values==='personal'){
         return(
             <div>
                 <Box
@@ -135,8 +150,8 @@ export default function PensionForm(props){
                     <Select
                     labelId="demo-simple-select-outlined-label"
                     id="demo-simple-select-outlined"
-                    value={data.pensionProvider}
-                    onChange={handleChange}
+                    value={props.values.pensionProvider}
+                    onChange={props.onChange}
                     label="Pension Provider"
                     name="pensionProvider"
                     >
@@ -154,8 +169,8 @@ export default function PensionForm(props){
                     label="Plan Number (Not compulsory)"
                     variant="outlined"
                     name="houseNumber"
-                    value={data.planNumber}
-                    onChange={handleChange}
+                    value={props.values.planNumber}
+                    onChange={props.onChange}
                 />
             </Box>
             </div>

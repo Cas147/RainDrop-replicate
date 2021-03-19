@@ -1,4 +1,5 @@
-import React from 'react';
+import React,{useState} from 'react';
+import {Link} from 'react-router-dom'
 
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -8,25 +9,27 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 
-import './styles/PensionSearcher.css'
 import PensionForm from './PensionForm'
+import './styles/PensionSearcher.css'
 const useStyles = makeStyles((theme) => ({
     button: {
       margin: theme.spacing(1),
     },
   }));
 
-export default function PensionSearcher(){
+export default function PensionSearcher(props){
 
-    const [radio, setRadio] = React.useState('workplace');
+    const [radio, setRadio] = useState('workplace');
 
     const handleChange = (event) => {
-    setRadio(event.target.value);
-  };
-    console.log(radio)
+      setRadio(event.target.value);
+    };
+
+    console.log(props.values.radio)
     const classes = useStyles();
     return(
-        <div>
+        <div className="pensionSearcher-container">
+            <h2>Set up your Pension Searches</h2>
             <div className="title-container">
                 <Box display="flex">
                     <Box display="flex" justifyContent="flex-start">
@@ -42,7 +45,7 @@ export default function PensionSearcher(){
                             </Button>
                     </Box>
                 </Box>
-                <RadioGroup row aria-label="position" name="position" defaultValue="top" value={radio}  onChange={handleChange}>
+                <RadioGroup row aria-label="position" name="position" defaultValue="top" value={radio}         onChange={handleChange}>
                     <FormControlLabel
                     value="workplace"
                     control={<Radio color="primary" />}
@@ -54,7 +57,14 @@ export default function PensionSearcher(){
                     label=" Personal" />
                 </RadioGroup>
                 </div>
-                <PensionForm radio={radio}/>
+                <div>
+                <PensionForm
+                    onChange={props.onChange}
+                    values={radio}
+                />
+                </div>
+            <h2>Sending your results</h2>
+            <p>Once you have submitted your search, our team will find your pensions and contact you by email. By clicking submit you are agreeing to our  <Link className="link-Pform-container" to="#"> privacy policy.</Link></p>
         </div>
     )
 }

@@ -16,3 +16,9 @@ p{
 .link-Pform-container{
     color:#00667d
 }
+
+.pensionSearcher-container{
+    width: 60%;
+    height: auto;
+    margin: 0 auto;
+}

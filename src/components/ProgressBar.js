@@ -3,7 +3,25 @@ import React from 'react';
 import './styles/ProgressBar.css'
 import checked from '../images/600px-White_check.svg.png'
 
-export default function ProgressBar(dataInformation){
+export default function ProgressBar(props){
+    let circleOne=false;
+    let circleTwo=false;
+    let circleThree=false;
+    let circleFour=false;
+    let circleFive=false;
+
+    console.log(props)
+
+    if (props.postCode!== '' && props.houseNumber!== ''&& props.adressLineOne!== ''&& props.adressLineTwo!== ''&& props.city !== ''){
+        circleTwo=true;
+    }
+    if (props.insuranceNumber!== ''){
+        circleThree=true;
+    }
+    if (props.pensionProvider!== '' && props.planNumber!== ''){
+        circleFour=true;
+    }
+    console.log(circleTwo)
     return(
         <div className="principal">
             <div className="container">
@@ -20,10 +38,10 @@ export default function ProgressBar(dataInformation){
 
                 <div className="adress-container size">
                 <div className="progress-container">
-                        <div className="circle">
+                        <div className={`circle ${circleTwo && 'circleTwo'}`}>
                             <img src={checked} alt="checked icon"/>
                         </div>
-                        <div className="bars"></div>
+                        <div className={`bars ${circleTwo && 'barsTwo'}`}></div>
                     </div>
                     <p className="step">Step 2</p>
                     <h5>Address</h5>
@@ -31,10 +49,10 @@ export default function ProgressBar(dataInformation){
 
                 <div className="insurance-container size">
                 <div className="progress-container">
-                        <div className="circle">
+                        <div className={`circle ${circleThree && 'circleTwo'}`}>
                             <img src={checked} alt="checked icon"/>
                         </div>
-                        <div className="bars"></div>
+                        <div className={`bars ${circleThree && 'barsTwo'}`}></div>
                     </div>
                     <p className="step">Step 3</p>
                     <h5>National Insurance</h5>
@@ -42,10 +60,10 @@ export default function ProgressBar(dataInformation){
 
                 <div className="pension-container size">
                 <div className="progress-container">
-                        <div className="circle">
+                        <div className={`circle ${circleFour && 'circleTwo'}`}>
                             <img src={checked} alt="checked icon"/>
                         </div>
-                        <div className="bars"></div>
+                        <div className={`bars ${circleFour && 'barsTwo'}`}></div>
                     </div>
                     <p className="step">Step 4</p>
                     <h5>Pension searches</h5>

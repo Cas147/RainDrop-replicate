@@ -3,19 +3,27 @@ import React, {useState} from 'react'
 import Header from "../components/Header"
 import PrincipalForm from '../components/PrincipalForm'
 import ProgressBar from '../components/ProgressBar'
-import useForm from '../components/useForm'
+import PensionSearcher from '../components/PensionSearcher'
+
 
 const initialValues = {
     firstName:'',
     lastName:'',
     email:'',
-    datePiker:new Date('2014-08-18T21:11:54'),
+    datePiker:new Date(),
     postCode:'',
     houseNumber:'',
     adressLineOne:'',
     adressLineTwo:'',
     city:'',
     insuranceNumber:'',
+    pensionProvider:'',
+    planNumber:'',
+    houseNumber:'',
+    Employer:'',
+    EmployementType:'',
+    startDate:new Date(),
+    endDate:new Date(),
 }
 
 export default function Raindrop(){
@@ -35,11 +43,28 @@ export default function Raindrop(){
             <Header
                 onChange={handleChange}
                 values={values}
+
             />
-            {/* <ProgressBar/> */}
+
+            <ProgressBar
+                postCode={values.postCode}
+                houseNumber={values.houseNumber}
+                adressLineOne={values.adressLineOne}
+                adressLineTwo={values.adressLineTwo}
+                city={values.city}
+                insuranceNumber={values.insuranceNumber}
+                pensionProvider={values.pensionProvider}
+                planNumber={values.planNumber}
+            />
+
             <PrincipalForm
                 onChange={handleChange}
                 values={values} />
+
+            <PensionSearcher
+             values={values}
+             onChange={handleChange}
+              />
         </div>
 
     )
