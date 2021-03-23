@@ -68,3 +68,27 @@ form{
     display: grid;
     grid-column: 1fr 1fr;
 }
+
+@media (max-width: 620px){
+    .header-container{
+        background-image: none;
+        width: 100%;
+        height: auto;
+       
+    }
+
+    .header-form--container{
+        width: 100%;
+        padding: 0px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 1024px){
+    .header-container{
+        width: 100%;
+        height: auto;
+    }
+}

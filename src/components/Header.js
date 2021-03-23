@@ -71,7 +71,8 @@ export default function Header(props){
                     <form className={classes.root}>
                         <Grid container  >
                                 <Grid item xs={12} sm={6}>
-                                    <TextField className={classes.TextField}
+                                    <TextField className={classes.TextFieldGrid} fullWidth
+                                    required={true}
                                     id="outlined-basic"
                                     label="First Name"
                                     variant="outlined"
@@ -81,7 +82,8 @@ export default function Header(props){
                                     />
                                 </Grid>
                                 <Grid item xs={12} sm={6}>
-                                    <TextField className={classes.TextField}
+                                    <TextField className={classes.TextFieldGrid} fullWidth
+                                     required={true}
                                     id="outlined-basic"
                                     label="Last Name"
                                     name="lastName"
@@ -91,12 +93,13 @@ export default function Header(props){
                                     />
                                 </Grid>
                                 <Grid item xs={12} >
-                                    <TextField className={classes.TextFieldGrid } fullWidth 
+                                    <TextField className={classes.TextFieldGrid } fullWidth
 
                                     id="outlined-basic"
                                     label="Email"
                                     variant="outlined"
                                     name="email"
+                                    type="email"
                                     value={props.values.email}
                                     onChange={props.onChange}
                                     />

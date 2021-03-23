@@ -18,18 +18,12 @@ import './styles/PrincipalForm.css';
 import PensionSearcher from './PensionSearcher'
 
 const useStyles = makeStyles((theme) => ({
-    datePiker:{
-        background:'#efeff2',
-        height: '3em',
+    datePicker:{
         width:'22em'
     },
     formControl: {
         margin: theme.spacing(),
-        minWidth: 120,
-        background:'#efeff2',
-        height: '3em',
         width:'22em',
-        marginRight:'30px',
       },
 }));
 
@@ -43,19 +37,19 @@ export default function PrincipalForm(props){
             name, value
         }
     });
-
+    console.log('here')
     return(
         <form className="principla-form--container">
             <h2>Your Personal details</h2>
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                <KeyboardDatePicker className={classes.datePiker}
+                <KeyboardDatePicker className={classes.datePicker}
                     margin="normal"
                     id="date-picker-dialog"
                     label="Date picker dialog"
                     format="MM/dd/yyyy"
                     name="datePicker"
-                    value={props.values.selectedDate}
-                    onChange={date => props.onChange(convertToEvent(props.values.name,date))}
+                    value={props.values.datePicker}
+                    onChange={date => props.onChange(convertToEvent('datePicker', date))}
                     KeyboardButtonProps={{
                         'aria-label': 'change date',
                     }}

@@ -21,6 +21,9 @@ export default function ProgressBar(props){
     if (props.pensionProvider!== '' && props.planNumber!== ''){
         circleFour=true;
     }
+    if (props.email!== '' && props.password!== ''){
+        circleFive=true;
+    }
     console.log(circleTwo)
     return(
         <div className="principal">
@@ -70,7 +73,7 @@ export default function ProgressBar(props){
                 </div>
 
                 <div className="submit-container size">
-                    <div className="circle">
+                    <div className={`circle ${circleFive && 'circleTwo'}`}>
                         <img src={checked} alt="checked icon"/>
                     </div>
                     <p className="step">Step 5</p>

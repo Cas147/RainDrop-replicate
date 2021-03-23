@@ -1,9 +1,6 @@
 import React,{useState} from 'react';
-import {Link} from 'react-router-dom'
 
 import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import DeleteIcon from '@material-ui/icons/Delete';
 import Box from '@material-ui/core/Box';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
@@ -32,18 +29,6 @@ export default function PensionSearcher(props){
             <h2>Set up your Pension Searches</h2>
             <div className="title-container">
                 <Box display="flex">
-                    <Box display="flex" justifyContent="flex-start">
-                        <h3>Pension search 1</h3>
-                    </Box>
-                    <Box display="flex" justifyContent="flex-end">
-                            <Button
-                                variant="contained"
-                                color="secondary"
-                                className={classes.button}
-                                startIcon={<DeleteIcon />}
-                                >
-                            </Button>
-                    </Box>
                 </Box>
                 <RadioGroup row aria-label="position" name="position" defaultValue="top" value={radio}         onChange={handleChange}>
                     <FormControlLabel
@@ -60,11 +45,10 @@ export default function PensionSearcher(props){
                 <div>
                 <PensionForm
                     onChange={props.onChange}
-                    values={radio}
+                    radio={radio}
+                    data={props.values}
                 />
                 </div>
-            <h2>Sending your results</h2>
-            <p>Once you have submitted your search, our team will find your pensions and contact you by email. By clicking submit you are agreeing to our  <Link className="link-Pform-container" to="#"> privacy policy.</Link></p>
         </div>
     )
 }

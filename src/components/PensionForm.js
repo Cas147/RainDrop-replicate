@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -13,12 +13,13 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 import DateFnsUtils from "@date-io/date-fns"
+import Button from '@material-ui/core/Button';
+import DeleteIcon from '@material-ui/icons/Delete';
 
-import PensionBar from './pensionBar';
 
 
 const useStyles = makeStyles((theme) => ({
-    datePiker:{
+    datePicker:{
         background:'#efeff2',
         height: '3em',
         width:'22em'
@@ -35,17 +36,52 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PensionForm(props){
     const classes = useStyles();
+    const [count, setCount] = useState(1);
+    const [formList, setFormList] = useState([
+        {pensionProvider:'', planNumber:'', employer:'',employementType:'', startDate:new Date(),endDate:new Date(),}
+    ])
 
     const convertToEvent = (name,value) =>({
         target: {
             name, value
         }
     });
+    const handleChange = (index, event) =>{
+        const formList=[...formList];
+        formList[index][event.target.name] = event.target.value;
+        setFormList(formList)
 
+    }
+
+    const handleAdd = () => {
+        setFormList([...formList,{pensionProvider:'', planNumber:'', employer:'',EmployementType:'', startDate:new Date(),endDate:new Date()}]);
+        setCount(count+1)
+    }
+    const handleDelete = (index) =>{
+        const list=[...formList];
+        list.splice(index, 1);
+        setFormList(list)
+    }
     console.log(props.radio)
-    if(props.values==='workplace'){
+    if(props.radio==='workplace'){
     return(
         <div>
+
+            {formList.map((formValue, index)=>(
+            <div key={index}>
+            <Box display="flex">
+                <h3>Pension search {count}</h3>
+                <div display="flex" justifyContent="flex-end">
+                        <Button
+                            variant="contained"
+                            color="secondary"
+                            className={classes.button}
+                            startIcon={<DeleteIcon />}
+                            onClick={handleDelete}
+                            >
+                        </Button>
+                </div>
+            </Box>
             <Box
                 display="flex"
                 flexWrap="wrap">
@@ -54,8 +90,8 @@ export default function PensionForm(props){
                     <Select
                     labelId="demo-simple-select-outlined-label"
                     id="demo-simple-select-outlined"
-                    value={props.values.pensionProvider}
-                    onChange={props.onChange}
+                    value={props.data.pensionProvider}
+                    onChange={handleChange}
                     label="Pension Provider"
                     name="pensionProvider"
                     >
@@ -72,18 +108,18 @@ export default function PensionForm(props){
                     id="outlined-basic"
                     label="Plan Number (Not compulsory)"
                     variant="outlined"
-                    name="houseNumber"
-                    value={props.values.planNumber}
-                    onChange={props.onChange}
+                    name="planNumber"
+                    value={props.data.planNumber}
+                    onChange={handleChange}
                 />
 
                 <TextField className={classes.formControl}
                     id="outlined-basic"
                     label="Employer"
                     variant="outlined"
-                    name="Employer"
-                    value={props.values.employer}
-                    onChange={props.onChange}
+                    name="employer"
+                    value={props.data.employer}
+                    onChange={handleChange}
                 />
 
                 <FormControl variant="outlined" className={classes.formControl}>
@@ -91,10 +127,10 @@ export default function PensionForm(props){
                     <Select
                     labelId="demo-simple-select-outlined-label"
                     id="demo-simple-select-outlined"
-                    value={props.values.EmployementType}
-                    onChange={props.onChange}
+                    value={props.data.pensionSearch.employementType}
+                    onChange={handleChange}
                     label="Employement type (Not compulsory)"
-                    name="EmployementType"
+                    name="employementType"
                     >
                     <MenuItem value="">
                         <em>None</em>
@@ -112,8 +148,8 @@ export default function PensionForm(props){
                     label="Aproximate start date (Not compulsory)"
                     format="MM/yyyy"
                     name="startDate"
-                    value={props.values.selectedDate}
-                    onChange={date => props.onChange(convertToEvent(props.values.startDate,date))}
+                    value={props.data.startDate}
+                    onChange={date => handleChange(convertToEvent(props.data.startDate,date))}
                     KeyboardButtonProps={{
                         'aria-label': 'change date',
                     }}
@@ -127,19 +163,24 @@ export default function PensionForm(props){
                     label="Aproximate start date (Not compulsory)"
                     format="MM/yyyy"
                     name="endDate"
-                    value={props.values.selectedDate}
-                    onChange={date => props.onChange(convertToEvent(props.values.endDate,date))}
+                    value={props.data.endDate}
+                    onChange={date => handleChange(convertToEvent(props.data.endDate,date))}
                     KeyboardButtonProps={{
                         'aria-label': 'change date',
                     }}
                 />
                 </MuiPickersUtilsProvider>
             </Box>
+            </div>
+
+            ))}
+
             <p>The more information you give us, the greater the likelihood of finding the pension (see strength below)</p>
-            <PensionBar/>
+            <Button onClick={handleAdd} variant="outlined" color="secondary" >+ Another search</Button>
         </div>
+
     )}
-    if(props.values==='personal'){
+    if(props.radio==='personal'){
         return(
             <div>
                 <Box
@@ -150,7 +191,7 @@ export default function PensionForm(props){
                     <Select
                     labelId="demo-simple-select-outlined-label"
                     id="demo-simple-select-outlined"
-                    value={props.values.pensionProvider}
+                    value={props.data.pensionProvider}
                     onChange={props.onChange}
                     label="Pension Provider"
                     name="pensionProvider"
@@ -168,11 +209,12 @@ export default function PensionForm(props){
                     id="outlined-basic"
                     label="Plan Number (Not compulsory)"
                     variant="outlined"
-                    name="houseNumber"
-                    value={props.values.planNumber}
+                    name="planNumber"
+                    value={props.data.planNumber}
                     onChange={props.onChange}
                 />
             </Box>
+            <p>The more information you give us, the greater the likelihood of finding the pension (see strength below)</p>
             </div>
         )
     }

@@ -1,0 +1,9 @@
+.footer-container{
+    margin: 0 auto;
+    width: 60%;
+    margin-top: 60px;
+}
+
+.footer-container span{
+    font-size: 0.9em;
+}
