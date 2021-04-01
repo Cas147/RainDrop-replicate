@@ -10,8 +10,9 @@ export default function ProgressBar(props){
     let circleFour=false;
     let circleFive=false;
 
-    console.log(props)
-
+    if (props.datePicker!== new Date('2014-08-18T21:11:54')){
+        circleOne=true;
+    }
     if (props.postCode!== '' && props.houseNumber!== ''&& props.adressLineOne!== ''&& props.adressLineTwo!== ''&& props.city !== ''){
         circleTwo=true;
     }
@@ -24,16 +25,15 @@ export default function ProgressBar(props){
     if (props.email!== '' && props.password!== ''){
         circleFive=true;
     }
-    console.log(circleTwo)
     return(
         <div className="principal">
             <div className="container">
                 <div className="details-container size">
                     <div className="progress-container">
-                        <div className="circle">
+                        <div className={`circle ${circleOne && 'circleTwo'}`}>
                             <img src={checked} alt="checked icon"/>
                         </div>
-                        <div className="bars"></div>
+                        <div className={`bars ${circleOne && 'barsTwo'}`}></div>
                     </div>
                     <p className="step">Step 1</p>
                     <h5>Your detail</h5>

@@ -16,9 +16,7 @@ const useStyles = makeStyles((theme) => ({
       width: '100%',
   },
   TextField:{
-      background:'#efeff2',
       borderRadius: 5,
-      margin:5,
       borderColor: 'none',
   },
   Button:{
@@ -32,7 +30,6 @@ const useStyles = makeStyles((theme) => ({
   },
   TextFieldGrid:{
       width:'98%',
-      background:'#efeff2',
       borderRadius: 5,
       margin:5,
       borderColor: 'none',
@@ -42,8 +39,6 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function Header(props){
-
-    console.log(props)
     const classes = useStyles();
 
    /*  const {values,setValues,handleChange} = useForm(initialValues) */
@@ -53,6 +48,8 @@ export default function Header(props){
         console.log('form was submited')
         console.log(props.values)
     }
+    const error= null;
+    console.log(error)
     return(
         <div>
             <div className="header-container">
@@ -72,24 +69,28 @@ export default function Header(props){
                         <Grid container  >
                                 <Grid item xs={12} sm={6}>
                                     <TextField className={classes.TextFieldGrid} fullWidth
-                                    required={true}
                                     id="outlined-basic"
                                     label="First Name"
                                     variant="outlined"
                                     name="firstName"
                                     value={props.values.firstName}
+                                    autoComplete='off'
                                     onChange={props.onChange}
+                                    error={props.errors.firstName}
+                                    {...(props.errors.firstName &&{error:true,helperText:props.errors.firstName})}
                                     />
                                 </Grid>
                                 <Grid item xs={12} sm={6}>
                                     <TextField className={classes.TextFieldGrid} fullWidth
-                                     required={true}
                                     id="outlined-basic"
                                     label="Last Name"
                                     name="lastName"
                                     variant="outlined"
                                     value={props.values.lastName}
+                                    autoComplete='off'
                                     onChange={props.onChange}
+                                    error={props.errors.lastName}
+                                    {...(props.errors.lastName &&{error:true,helperText:props.errors.lastName})}
                                     />
                                 </Grid>
                                 <Grid item xs={12} >
@@ -102,6 +103,9 @@ export default function Header(props){
                                     type="email"
                                     value={props.values.email}
                                     onChange={props.onChange}
+                                    autoComplete='off'
+                                    error={props.errors.email}
+                                    {...(props.errors.email &&{error:true,helperText:props.errors.email})}
                                     />
                                 </Grid>
                         </Grid>

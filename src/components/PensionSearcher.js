@@ -22,7 +22,6 @@ export default function PensionSearcher(props){
       setRadio(event.target.value);
     };
 
-    console.log(props.values.radio)
     const classes = useStyles();
     return(
         <div className="pensionSearcher-container">

@@ -20,14 +20,12 @@ import DeleteIcon from '@material-ui/icons/Delete';
 
 const useStyles = makeStyles((theme) => ({
     datePicker:{
-        background:'#efeff2',
         height: '3em',
         width:'22em'
     },
     formControl: {
         margin: theme.spacing(),
         minWidth: 120,
-        background:'#efeff2',
         height: '3em',
         width:'22em',
         marginRight:'30px'
@@ -62,7 +60,6 @@ export default function PensionForm(props){
         list.splice(index, 1);
         setFormList(list)
     }
-    console.log(props.radio)
     if(props.radio==='workplace'){
     return(
         <div>

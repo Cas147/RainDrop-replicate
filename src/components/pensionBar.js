@@ -29,7 +29,6 @@ export default function ProgressBar(props){
         employementTypeCount=0;
     }
     let totalCount=pensionProviderCount+planNumberCount+employerCount+employementTypeCount;
-    console.log(props)
     return(
         <div className="progressPension-container">
             <div className={`progress ${totalCount >=1 && 'progressTwo'}`}></div>

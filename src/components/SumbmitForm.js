@@ -10,14 +10,12 @@ import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme) => ({
     datePicker:{
-        background:'#efeff2',
         height: '3em',
         width:'22em'
     },
     formControl: {
         margin: theme.spacing(),
         minWidth: 120,
-        background:'#efeff2',
         height: '3em',
         width:'22em',
         marginRight:'30px'
@@ -34,11 +32,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SubmitForm (props){
-    const handleSubmit= (event) => {
-        event.preventDefault();
-        console.log('form was submited')
-        console.log(props.values)
-    }
+
     const classes = useStyles();
     return(
         <div className="submit-contianer">
@@ -51,7 +45,10 @@ export default function SubmitForm (props){
             name="email"
             type="email"
             value={props.values.email}
-             onChange={props.onChange}
+            autoComplete='off'
+            onChange={props.onChange}
+            error={props.errors.email}
+            {...(props.errors.email &&{error:true,helperText:props.errors.email})}
             />
 
         <TextField className={classes.formControl}
@@ -61,13 +58,16 @@ export default function SubmitForm (props){
             name="password"
             type="password"
             value={props.values.password}
+            autoComplete='off'
             onChange={props.onChange}
+            error={props.errors.password}
+            {...(props.errors.password &&{error:true,helperText:props.errors.password})}
             />
             <div>
             <p>By signing up to the Raindrop app you agree to our  <Link className="link-Pform-container" to="#"> privacy policy</Link> and <Link className="link-Pform-container" to="#">terms & conditions</Link>.</p>
             </div>
 
-            <Button onClick={handleSubmit} className={classes.Button} variant="contained" >Submit</Button>
+            <Button onClick={props.handleSubmit} className={classes.Button} variant="contained" >Submit</Button>
     </div>
     )
 }
