@@ -15,6 +15,7 @@ import {
 import DateFnsUtils from "@date-io/date-fns"
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
+import { v4 as uuidv4 } from 'uuid';
 
 
 
@@ -35,8 +36,8 @@ const useStyles = makeStyles((theme) => ({
 export default function PensionForm(props){
     const classes = useStyles();
     const [count, setCount] = useState(1);
-    const [formList, setFormList] = useState([
-        {pensionProvider:'', planNumber:'', employer:'',employementType:'', startDate:new Date(),endDate:new Date(),}
+    const   [inputFields, setInputFields] = useState([
+        {id: uuidv4(), pensionProvider:'', planNumber:'', employer:'',employementType:'', startDate:new Date(),endDate:new Date(),},
     ])
 
     const convertToEvent = (name,value) =>({
@@ -44,28 +45,31 @@ export default function PensionForm(props){
             name, value
         }
     });
-    const handleChange = (index, event) =>{
-        const formList=[...formList];
-        formList[index][event.target.name] = event.target.value;
-        setFormList(formList)
-
-    }
+    const handleChangeInput = (id, event) => {
+        const newInputFields = inputFields.map(i => {
+          if(id === i.id) {
+            i[event.target.name] = event.target.value
+          }
+          return i;
+        })
+        setInputFields(newInputFields);
+      }
 
     const handleAdd = () => {
-        setFormList([...formList,{pensionProvider:'', planNumber:'', employer:'',EmployementType:'', startDate:new Date(),endDate:new Date()}]);
+        setInputFields([...inputFields,{ id: uuidv4(),pensionProvider:'', planNumber:'', employer:'',EmployementType:'', startDate:new Date(),endDate:new Date()}]);
         setCount(count+1)
     }
-    const handleDelete = (index) =>{
-        const list=[...formList];
-        list.splice(index, 1);
-        setFormList(list)
+    const handleDelete = id =>{
+        const values=[...inputFields];
+        values.splice(values.findIndex(value => value.id === id), 1);
+        setInputFields(values);
     }
     if(props.radio==='workplace'){
     return(
         <div>
 
-            {formList.map((formValue, index)=>(
-            <div key={index}>
+        { inputFields.map(inputField => (
+            <div key={inputField.id}>
             <Box display="flex">
                 <h3>Pension search {count}</h3>
                 <div display="flex" justifyContent="flex-end">
@@ -87,8 +91,8 @@ export default function PensionForm(props){
                     <Select
                     labelId="demo-simple-select-outlined-label"
                     id="demo-simple-select-outlined"
-                    value={props.data.pensionProvider}
-                    onChange={handleChange}
+                    value={inputField.pensionProvider}
+                    onChange={event => handleChangeInput(inputField.id, event)}
                     label="Pension Provider"
                     name="pensionProvider"
                     >
@@ -106,8 +110,8 @@ export default function PensionForm(props){
                     label="Plan Number (Not compulsory)"
                     variant="outlined"
                     name="planNumber"
-                    value={props.data.planNumber}
-                    onChange={handleChange}
+                    value={inputField.planNumber}
+                    onChange={event => handleChangeInput(inputField.id, event)}
                 />
 
                 <TextField className={classes.formControl}
@@ -115,8 +119,8 @@ export default function PensionForm(props){
                     label="Employer"
                     variant="outlined"
                     name="employer"
-                    value={props.data.employer}
-                    onChange={handleChange}
+                    value={inputField.employer}
+                    onChange={event => handleChangeInput(inputField.id, event)}
                 />
 
                 <FormControl variant="outlined" className={classes.formControl}>
@@ -124,8 +128,8 @@ export default function PensionForm(props){
                     <Select
                     labelId="demo-simple-select-outlined-label"
                     id="demo-simple-select-outlined"
-                    value={props.data.pensionSearch.employementType}
-                    onChange={handleChange}
+                    value={inputField.employementType}
+                    onChange={event => handleChangeInput(inputField.id, event)}
                     label="Employement type (Not compulsory)"
                     name="employementType"
                     >
@@ -145,8 +149,8 @@ export default function PensionForm(props){
                     label="Aproximate start date (Not compulsory)"
                     format="MM/yyyy"
                     name="startDate"
-                    value={props.data.startDate}
-                    onChange={date => handleChange(convertToEvent(props.data.startDate,date))}
+                    value={inputField.startDate}
+                    onChange={event => handleChangeInput(inputField.id, event)}
                     KeyboardButtonProps={{
                         'aria-label': 'change date',
                     }}
@@ -160,8 +164,8 @@ export default function PensionForm(props){
                     label="Aproximate start date (Not compulsory)"
                     format="MM/yyyy"
                     name="endDate"
-                    value={props.data.endDate}
-                    onChange={date => handleChange(convertToEvent(props.data.endDate,date))}
+                    value={inputField.endDate}
+                    onChange={event => handleChangeInput(inputField.id, event)}
                     KeyboardButtonProps={{
                         'aria-label': 'change date',
                     }}
@@ -172,7 +176,7 @@ export default function PensionForm(props){
 
             ))}
 
-            <p>The more information you give us, the greater the likelihood of finding the pension (see strength below)</p>
+            <p className="p-gray">The more information you give us, the greater the likelihood of finding the pension (see strength below)</p>
             <Button onClick={handleAdd} variant="outlined" color="secondary" >+ Another search</Button>
         </div>
 

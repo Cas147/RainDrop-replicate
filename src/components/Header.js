@@ -41,15 +41,11 @@ const useStyles = makeStyles((theme) => ({
 export default function Header(props){
     const classes = useStyles();
 
-   /*  const {values,setValues,handleChange} = useForm(initialValues) */
-
     const handleSubmit= (event) => {
         event.preventDefault();
         console.log('form was submited')
         console.log(props.values)
     }
-    const error= null;
-    console.log(error)
     return(
         <div>
             <div className="header-container">

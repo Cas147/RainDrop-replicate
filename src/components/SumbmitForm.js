@@ -37,7 +37,7 @@ export default function SubmitForm (props){
     return(
         <div className="submit-contianer">
         <h2>Sending your results</h2>
-            <p>Once you have submitted your search, our team will find your pensions and contact you by email. By clicking submit you are agreeing to our  <Link className="link-Pform-container" to="#"> privacy policy.</Link></p>
+            <p className="p-gray">Once you have submitted your search, our team will find your pensions and contact you by email. By clicking submit you are agreeing to our  <Link className="link-Pform-container" to="#"> privacy policy.</Link></p>
         <TextField className={classes.formControl}
             id="outlined-basic"
             label=" Email"
@@ -64,7 +64,7 @@ export default function SubmitForm (props){
             {...(props.errors.password &&{error:true,helperText:props.errors.password})}
             />
             <div>
-            <p>By signing up to the Raindrop app you agree to our  <Link className="link-Pform-container" to="#"> privacy policy</Link> and <Link className="link-Pform-container" to="#">terms & conditions</Link>.</p>
+            <p >By signing up to the Raindrop app you agree to our  <Link className="link-Pform-container" to="#"> privacy policy</Link> and <Link className="link-Pform-container" to="#">terms & conditions</Link>.</p>
             </div>
 
             <Button onClick={props.handleSubmit} className={classes.Button} variant="contained" >Submit</Button>
