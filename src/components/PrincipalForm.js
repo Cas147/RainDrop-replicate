@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
         marginRight:'5px',
       },
       insurance:{
-        width:'23em'
+        width:'21em'
     },
 }));
 
@@ -48,7 +48,7 @@ export default function PrincipalForm(props){
                 <KeyboardDatePicker className={classes.datePicker}
                     margin="normal"
                     id="date-picker-dialog"
-                    label="Date picker dialog"
+                    label="Date of birth"
                     format="MM/dd/yyyy"
                     name="datePicker"
                     value={props.values.datePicker}

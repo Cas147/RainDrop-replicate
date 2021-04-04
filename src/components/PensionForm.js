@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(),
         minWidth: 120,
         height: '3em',
-        width:'22em',
+        width:'20em',
         marginRight:'30px'
       },
 }));
@@ -60,18 +60,21 @@ export default function PensionForm(props){
         setCount(count+1)
     }
     const handleDelete = id =>{
-        const values=[...inputFields];
-        values.splice(values.findIndex(value => value.id === id), 1);
-        setInputFields(values);
+        if(inputFields.length >=2){
+            const values=[...inputFields];
+            values.splice(values.findIndex(value => value.id === id), 1);
+            setInputFields(values);
+    }
     }
     if(props.radio==='workplace'){
+
     return(
         <div>
 
         { inputFields.map(inputField => (
             <div key={inputField.id}>
             <Box display="flex">
-                <h3>Pension search {count}</h3>
+                <h3>Pension search {inputFields.length}</h3>
                 <div display="flex" justifyContent="flex-end">
                         <Button
                             variant="contained"
@@ -179,7 +182,6 @@ export default function PensionForm(props){
             <p className="p-gray">The more information you give us, the greater the likelihood of finding the pension (see strength below)</p>
             <Button onClick={handleAdd} variant="outlined" color="secondary" >+ Another search</Button>
         </div>
-
     )}
     if(props.radio==='personal'){
         return(

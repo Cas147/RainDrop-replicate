@@ -28,6 +28,8 @@ const initialValues = {
         startDate:new Date(),
         endDate:new Date(),},
     password:'',
+    transferingPension:false,
+    news:false,
 }
 
 export default function Raindrop(){
@@ -67,7 +69,8 @@ export default function Raindrop(){
         event.preventDefault()
         console.log(errors)
         if(validate())
-            window.alert('testing...')
+            window.alert('testing...');
+            console.log(values);
     }
     return(
         <div>
@@ -77,7 +80,7 @@ export default function Raindrop(){
                 errors={errors}
             />
 
-{/*             <ProgressBar
+            <ProgressBar
                 postCode={values.postCode}
                 houseNumber={values.houseNumber}
                 adressLineOne={values.adressLineOne}
@@ -88,7 +91,7 @@ export default function Raindrop(){
                 planNumber={values.pensionSearch.planNumber}
                 email={values.email}
                 password={values.password}
-            /> */}
+            />
 
             <PrincipalForm
                 onChange={handleChange}

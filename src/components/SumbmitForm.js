@@ -3,6 +3,9 @@ import {Link} from 'react-router-dom'
 
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
 
 import './styles/SubmitForm.css'
 import Button from '@material-ui/core/Button';
@@ -17,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(),
         minWidth: 120,
         height: '3em',
-        width:'22em',
+        width:'20em',
         marginRight:'30px'
       },
       Button:{
@@ -32,6 +35,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SubmitForm (props){
+    const convertToEvent = (name,value) =>({
+        target: {
+            name, value
+        }
+    });
 
     const classes = useStyles();
     return(
@@ -64,8 +72,31 @@ export default function SubmitForm (props){
             {...(props.errors.password &&{error:true,helperText:props.errors.password})}
             />
             <div>
-            <p >By signing up to the Raindrop app you agree to our  <Link className="link-Pform-container" to="#"> privacy policy</Link> and <Link className="link-Pform-container" to="#">terms & conditions</Link>.</p>
+            <FormControl component="fieldset">
+                <FormControlLabel
+                    value={props.values.transferingPension}
+                    control={<Checkbox color="primary" />}
+                    label="Would you consider transferring all of your pensions into one pot when found?"
+                    labelPlacement="end"
+                    onChange={e=>props.onChange(convertToEvent('transferingPension',e.target.checked))}
+                    style ={{
+                      color: "#71718f",
+                    }}
+                />
+                <FormControlLabel
+                    value={props.values.news}
+                    control={<Checkbox color="primary" />}
+                    label="I'd like to receive pension news from Raindrop."
+                    labelPlacement="end"
+                    onChange={e=>props.onChange(convertToEvent('news',e.target.checked))}
+                    style ={{
+                      color: "#71718f",
+                    }}
+                />
+            </FormControl>
+            <p > <b>By signing up to the Raindrop app you agree to our</b> <Link className="link-Pform-container" to="#"> privacy policy</Link> and <Link className="link-Pform-container" to="#">terms & conditions</Link>.</p>
             </div>
+
 
             <Button onClick={props.handleSubmit} className={classes.Button} variant="contained" >Submit</Button>
     </div>

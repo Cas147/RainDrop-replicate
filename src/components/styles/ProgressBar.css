@@ -9,8 +9,10 @@
     justify-content: center;
     align-items: center;
     justify-content: space-evenly;
-    position: sticky;
+    bottom: 70px;
+    position: relative;
     left: calc(50% - 430px);
+    overflow: hidden;
 }
 
 .text-fixed{
@@ -18,15 +20,15 @@
 }
 
 .principal{
-    position: relative;
-    bottom: 80px;
+    position: sticky;
+    top: 70px;
 }
 
 .circle{
     width: 2rem;
     height: 2rem;
     border-radius: 50%;
-    background-color: #c1c1c1;
+    background-color: #9b9b9b;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -49,7 +51,7 @@
 .step{
     font-size: 12px;
     font-weight: 500;
-    color: #a1a1a7;
+    color: #9b9b9b;
     margin: 0 auto;
     margin-left: 10px;
 }
@@ -70,7 +72,7 @@
 .bars{
     width: 80px;
     height: 4.2px;
-    background-color: #c1c1c1;
+    background-color: #9b9b9b;
     align-self: center;
     margin-right:10px ;
 }
