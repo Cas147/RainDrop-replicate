@@ -1,3 +1,8 @@
+.pensionForm-container{
+    width: 60%;
+    margin: 0 auto;
+}
+
 h3{
     color: #71717a;
     font-size: 1.5em;
@@ -22,7 +27,11 @@ h3{
     height: auto;
     margin: 0 auto;
 }
-
+.button-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
 @media (max-width: 620px){
     .pensionSearcher-container{
         width: 100%;

@@ -47,7 +47,6 @@ export default function Header(props){
         console.log(props.values)
     }
     return(
-        <div>
             <div className="header-container">
                 <div className="header-form--container">
                     <div className="top-form--container">
@@ -109,7 +108,6 @@ export default function Header(props){
                     </form>
                 </div>
             </div>
-        </div>
         )
     }
 

@@ -8,6 +8,12 @@ h2{
     color: #bd0033;
     font-size: 2em;
     font-weight: bold;
-    margin-top: 20px;
+    margin-top: 30px;
+}
+
+@media (max-width: 620px){
+    .principla-form--container{
+        width: 100%;
+    }
 }
 

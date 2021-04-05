@@ -32,6 +32,9 @@ const useStyles = makeStyles((theme) => ({
         width:'12em',
         color:'white',
       },
+      checked:{
+          marginTop:"15px"
+      }
 }));
 
 export default function SubmitForm (props){
@@ -72,7 +75,7 @@ export default function SubmitForm (props){
             {...(props.errors.password &&{error:true,helperText:props.errors.password})}
             />
             <div>
-            <FormControl component="fieldset">
+            <FormControl component="fieldset" className={classes.checked}>
                 <FormControlLabel
                     value={props.values.transferingPension}
                     control={<Checkbox color="primary" />}

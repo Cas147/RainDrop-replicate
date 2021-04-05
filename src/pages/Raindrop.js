@@ -3,11 +3,11 @@ import React, {useState} from 'react'
 import Header from "../components/Header"
 import PrincipalForm from '../components/PrincipalForm'
 import ProgressBar from '../components/ProgressBar'
-import PensionSearcher from '../components/PensionSearcher'
+import PensionForm from '../components/PensionForm'
 import SubmitForm from '../components/SumbmitForm'
-import PensionBar from  '../components/pensionBar'
 import Footer from '../components/footer'
 
+import './raindrop.css'
 
 const initialValues = {
     firstName:'',
@@ -20,13 +20,6 @@ const initialValues = {
     adressLineTwo:'',
     city:'',
     insuranceNumber:'',
-    pensionSearch: {
-        pensionProvider:'',
-        planNumber:'',
-        employer:'',
-        employementType:'',
-        startDate:new Date(),
-        endDate:new Date(),},
     password:'',
     transferingPension:false,
     news:false,
@@ -73,7 +66,7 @@ export default function Raindrop(){
             console.log(values);
     }
     return(
-        <div>
+        <div className="raindrop">
             <Header
                 onChange={handleChange}
                 values={values}
@@ -100,9 +93,7 @@ export default function Raindrop(){
                 errors={errors}
                 />
 
-            <PensionSearcher
-             values={values}
-             onChange={handleChange}
+            <PensionForm
               />
 {/*             <PensionBar
                 pensionProvider={values.pensionSearch.pensionProvider}

@@ -64,22 +64,16 @@
     flex-wrap: wrap;
 }
 
-form{
-    display: grid;
-    grid-column: 1fr 1fr;
-}
 
 @media (max-width: 620px){
     .header-container{
         background-image: none;
-        width: 100%;
-        height: auto;
-       
+
     }
 
     .header-form--container{
         width: 100%;
-        padding: 0px;
+        margin: 0px;
         display: flex;
         flex-direction: column;
         justify-content: center;

@@ -15,7 +15,12 @@ import {
 import DateFnsUtils from "@date-io/date-fns"
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
 import { v4 as uuidv4 } from 'uuid';
+
+import './styles/PensionSearcher.css'
 
 
 
@@ -31,20 +36,24 @@ const useStyles = makeStyles((theme) => ({
         width:'20em',
         marginRight:'30px'
       },
+    button:{
+        padding:'10px 28px',
+        borderRadius:'30px',
+    },
+    deleteButton:{
+        borderRadius:"40%",
+        border:"1px solid #bd0033",
+        marginRight:'30px'
+    },
 }));
 
-export default function PensionForm(props){
+export default function PensionForm(){
     const classes = useStyles();
     const [count, setCount] = useState(1);
     const   [inputFields, setInputFields] = useState([
         {id: uuidv4(), pensionProvider:'', planNumber:'', employer:'',employementType:'', startDate:new Date(),endDate:new Date(),},
     ])
 
-    const convertToEvent = (name,value) =>({
-        target: {
-            name, value
-        }
-    });
     const handleChangeInput = (id, event) => {
         const newInputFields = inputFields.map(i => {
           if(id === i.id) {
@@ -66,20 +75,39 @@ export default function PensionForm(props){
             setInputFields(values);
     }
     }
-    if(props.radio==='workplace'){
+    const [radio, setRadio] = useState('workplace');
+
+    const handleChange = (event) => {
+      setRadio(event.target.value);
+    };
+    console.log(inputFields)
+    if(radio==='workplace'){
 
     return(
-        <div>
+        <div className="pensionForm-container">
 
         { inputFields.map(inputField => (
             <div key={inputField.id}>
-            <Box display="flex">
+                <h2>Set up your Pension Searches</h2>
                 <h3>Pension search {inputFields.length}</h3>
+            <Box display="flex">
+                <div className="title-container">
+                    <Box display="flex">
+                    </Box>
+                    <RadioGroup row aria-label="position" name="position" defaultValue="top" value={radio}         onChange={handleChange}>
+                        <FormControlLabel
+                        value="workplace"
+                        control={<Radio color="primary" />}
+                        label=" Workplace" />
+
+                        <FormControlLabel
+                        value="personal"
+                        control={<Radio color="primary" />}
+                        label=" Personal" />
+                    </RadioGroup>
+                    </div>
                 <div display="flex" justifyContent="flex-end">
-                        <Button
-                            variant="contained"
-                            color="secondary"
-                            className={classes.button}
+                        <Button className={classes.deleteButton}
                             startIcon={<DeleteIcon />}
                             onClick={handleDelete}
                             >
@@ -180,44 +208,87 @@ export default function PensionForm(props){
             ))}
 
             <p className="p-gray">The more information you give us, the greater the likelihood of finding the pension (see strength below)</p>
-            <Button onClick={handleAdd} variant="outlined" color="secondary" >+ Another search</Button>
+            <div className="button-container">
+                <Button className={classes.button} onClick={handleAdd} variant="outlined" color="secondary" >+ Another search</Button>
+            </div>
         </div>
     )}
-    if(props.radio==='personal'){
+    if(radio==='personal'){
         return(
-            <div>
-                <Box
-                display="flex"
-                flexWrap="wrap">
-                <FormControl variant="outlined" className={classes.formControl}>
-                    <InputLabel id="demo-simple-select-outlined-label">Pension Provider</InputLabel>
-                    <Select
-                    labelId="demo-simple-select-outlined-label"
-                    id="demo-simple-select-outlined"
-                    value={props.data.pensionProvider}
-                    onChange={props.onChange}
-                    label="Pension Provider"
-                    name="pensionProvider"
-                    >
-                    <MenuItem value="">
-                        <em>None</em>
-                    </MenuItem>
-                    <MenuItem value={111111}>111111</MenuItem>
-                    <MenuItem value={222222}>222222</MenuItem>
-                    <MenuItem value={333333}>333333</MenuItem>
-                    </Select>
-                </FormControl>
+            <div className="pensionForm-container">
+             <div>
 
-                <TextField className={classes.formControl}
-                    id="outlined-basic"
-                    label="Plan Number (Not compulsory)"
-                    variant="outlined"
-                    name="planNumber"
-                    value={props.data.planNumber}
-                    onChange={props.onChange}
-                />
-            </Box>
-            <p>The more information you give us, the greater the likelihood of finding the pension (see strength below)</p>
+            { inputFields.map(inputField => (
+                <div key={inputField.id}>
+                    <h2>Set up your Pension Searches</h2>
+                    <h3>Pension search {inputFields.length}</h3>
+                <Box display="flex">
+                    <div className="title-container">
+                        <Box display="flex">
+                        </Box>
+                        <RadioGroup row aria-label="position" name="position" defaultValue="top" value={radio}         onChange={handleChange}>
+                            <FormControlLabel
+                            value="workplace"
+                            control={<Radio color="primary" />}
+                            label=" Workplace" />
+
+                            <FormControlLabel
+                            value="personal"
+                            control={<Radio color="primary" />}
+                            label=" Personal" />
+                        </RadioGroup>
+                        </div>
+                    <div display="flex" justifyContent="flex-end">
+                            <Button
+                                variant="contained"
+                                color="secondary"
+                                className={classes.button}
+                                startIcon={<DeleteIcon />}
+                                onClick={handleDelete}
+                                >
+                            </Button>
+                    </div>
+                </Box>
+                <Box
+                    display="flex"
+                    flexWrap="wrap">
+                    <FormControl variant="outlined" className={classes.formControl}>
+                        <InputLabel id="demo-simple-select-outlined-label">Pension Provider</InputLabel>
+                        <Select
+                        labelId="demo-simple-select-outlined-label"
+                        id="demo-simple-select-outlined"
+                        value={inputField.pensionProvider}
+                        onChange={event => handleChangeInput(inputField.id, event)}
+                        label="Pension Provider"
+                        name="pensionProvider"
+                        >
+                        <MenuItem value="">
+                            <em>None</em>
+                        </MenuItem>
+                        <MenuItem value={111111}>111111</MenuItem>
+                        <MenuItem value={222222}>222222</MenuItem>
+                        <MenuItem value={333333}>333333</MenuItem>
+                        </Select>
+                    </FormControl>
+
+                    <TextField className={classes.formControl}
+                        id="outlined-basic"
+                        label="Plan Number (Not compulsory)"
+                        variant="outlined"
+                        name="planNumber"
+                        value={inputField.planNumber}
+                        onChange={event => handleChangeInput(inputField.id, event)}
+                    />
+                </Box>
+                </div>
+
+                ))}
+
+                <p className="p-gray">The more information you give us, the greater the likelihood of finding the pension (see strength below)</p>
+                <div className="button-container">
+                <Button className={classes.button} onClick={handleAdd} variant="outlined" color="secondary" >+ Another search</Button>
+            </div>
+            </div>
             </div>
         )
     }
