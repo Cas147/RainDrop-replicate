@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useRef} from 'react'
 import {Link} from 'react-router-dom'
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -6,10 +6,11 @@ import TextField from '@material-ui/core/TextField';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
+import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
+import Box from "@material-ui/core/Box";
 
 import './styles/SubmitForm.css'
 import Button from '@material-ui/core/Button';
-
 
 const useStyles = makeStyles((theme) => ({
     datePicker:{
@@ -45,35 +46,47 @@ export default function SubmitForm (props){
     });
 
     const classes = useStyles();
+    const inputRef = useRef(null);
     return(
         <div className="submit-contianer">
         <h2>Sending your results</h2>
             <p className="p-gray">Once you have submitted your search, our team will find your pensions and contact you by email. By clicking submit you are agreeing to our  <Link className="link-Pform-container" to="#"> privacy policy.</Link></p>
-        <TextField className={classes.formControl}
-            id="outlined-basic"
-            label=" Email"
-            variant="outlined"
-            name="email"
-            type="email"
-            value={props.values.email}
-            autoComplete='off'
-            onChange={props.onChange}
-            error={props.errors.email}
-            {...(props.errors.email &&{error:true,helperText:props.errors.email})}
-            />
-
-        <TextField className={classes.formControl}
-            id="outlined-basic"
-            label="password"
-            variant="outlined"
-            name="password"
-            type="password"
-            value={props.values.password}
-            autoComplete='off'
-            onChange={props.onChange}
-            error={props.errors.password}
-            {...(props.errors.password &&{error:true,helperText:props.errors.password})}
-            />
+        <Box
+            display="flex"
+            flexWrap="wrap">
+            <TextField className={classes.formControl}
+                id="outlined-basic"
+                label=" Email"
+                variant="outlined"
+                name="email"
+                type="email"
+                value={props.values.email}
+                autoComplete='off'
+                onChange={props.onChange}
+                error={props.errors.email}
+                {...(props.errors.email &&{error:true,helperText:props.errors.email})}
+                />
+            <ValidatorForm
+                ref={inputRef}
+                onSubmit={props.onSubmit}
+                onError={errors => console.log(errors)}
+                            >
+                <TextValidator className={classes.formControl}
+                    id="outlined-basic"
+                    label="password"
+                    variant="outlined"
+                    name="password"
+                    type="password"
+                    value={props.values.password}
+                    autoComplete='off'
+                    onChange={props.onChange}
+                    validators={['matchRegexp:^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,50}$']}
+                    errorMessages={['Password should be between 8 and 50 chars and should contain 1 uppercase, 1 lowercase and 1 number']}
+                    error={props.errors.password}
+                    {...(props.errors.password &&{error:true,helperText:props.errors.password})}
+                    />
+                </ValidatorForm>
+            </Box>
             <div>
             <FormControl component="fieldset" className={classes.checked}>
                 <FormControlLabel

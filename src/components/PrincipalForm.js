@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useRef} from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -13,6 +13,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Grid from '@material-ui/core/Grid';
+import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 
 import './styles/PrincipalForm.css';
 
@@ -34,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PrincipalForm(props){
     const classes = useStyles();
-
+    const inputRef = useRef(null);
 
     const convertToEvent = (name,value) =>({
         target: {
@@ -136,17 +137,25 @@ export default function PrincipalForm(props){
                 </Grid>
             </Grid>
             <h2>Your National Insurance Number</h2>
-            <TextField className={classes.insurance}
-                    id="outlined-basic"
-                    label="Narional Insurance Number"
-                    variant="outlined"
-                    name="insuranceNumber"
-                    value={props.values.insuranceNumber}
-                    autoComplete='off'
-                    onChange={props.onChange}
-                    error={props.errors.insuranceNumber}
-                    {...(props.errors.insuranceNumber &&{error:true,helperText:props.errors.insuranceNumber})}
-                />
+            <ValidatorForm
+            ref={inputRef}
+            onSubmit={props.onSubmit}
+            onError={errors => console.log(errors)}
+                        >
+                <TextValidator className={classes.insurance}
+                        id="outlined-basic"
+                        label="Narional Insurance Number"
+                        variant="outlined"
+                        name="insuranceNumber"
+                        value={props.values.insuranceNumber}
+                        autoComplete='off'
+                        onChange={props.onChange}
+                        validators={['matchRegexp:^[a-zA-Z]{2}[0-9]{6}[a-zA-Z]{1}$']}
+                        errorMessages={['Please enter a valid NI number. This is 2 letters, followed by 6 digits followed by a final letter. For example AA123456C.']}
+                        error={props.errors.insuranceNumber}
+                        {...(props.errors.insuranceNumber &&{error:true,helperText:props.errors.insuranceNumber})}
+                    />
+            </ValidatorForm>
         </form>
     )
 }

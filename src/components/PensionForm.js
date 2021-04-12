@@ -47,8 +47,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PensionForm(props) {
   const classes = useStyles();
-  const [count, setCount] = useState(1);
-
 
   const changeToTarget = (name, value) => ({
     target: {
@@ -60,7 +58,7 @@ export default function PensionForm(props) {
     // initials props.values.pensions => updated pensions
     const updatedPensions = props.values.pensions.map((i) => {
       if (id === i.id) {
-        i[event.target.name] = 'a';
+        i[event.target.name] = [event.target.values];
       }
       return i;
     });
@@ -68,13 +66,6 @@ export default function PensionForm(props) {
     if (props.onChange) {
       props.onChange(changeToTarget('pensions', updatedPensions));
     }
-
-    props.values = {
-      firstName: 'Andres',
-      lastName: 'Castilla',
-      pensions: updatedPensions (has 'a') 
-    }
-
   };
 
   const handleAdd = () => {
@@ -90,15 +81,12 @@ export default function PensionForm(props) {
         endDate: new Date(),
       },
     ]);
-    setCount(count + 1);
   };
   const handleDelete = (id) => {
-    if (props.value.pensions.length >= 2) {
-      const values = [...props.value.pensions];
-      values.splice(
-        values.findIndex((value) => value.id === id),
-        1
-      );
+    if (props.values.pensions.length == 1) {
+      const values = [...props.values.pensions];
+      values.splice(values.findIndex((value) => value.id === id),1);
+
       props.onChange({pensions: values});
     }
   };
@@ -107,14 +95,13 @@ export default function PensionForm(props) {
   const handleChange = (event) => {
     setRadio(event.target.value);
   };
-  console.log(inputFields);
   if (radio === "workplace") {
     return (
       <div className="pensionForm-container">
         {props.values.pensions.map((inputField) => (
           <div key={inputField.id}>
             <h2>Set up your Pension Searches</h2>
-            <h3>Pension search {inputFields.length}</h3>
+            <h3>Pension search {}</h3>
             <Box display="flex">
               <div className="title-container">
                 <Box display="flex"></Box>
@@ -190,7 +177,11 @@ export default function PensionForm(props) {
                 variant="outlined"
                 name="employer"
                 value={inputField.employer}
-                onChange={(event) => handleChangeInput(inputField.id, event)}
+                 onChange={(event) => {
+                  handleChangeInput(inputField.id, event);
+                  if (props.onChange) {
+                  }
+                }}
               />
 
               <FormControl variant="outlined" className={classes.formControl}>
@@ -201,7 +192,11 @@ export default function PensionForm(props) {
                   labelId="demo-simple-select-outlined-label"
                   id="demo-simple-select-outlined"
                   value={inputField.employementType}
-                  onChange={(event) => handleChangeInput(inputField.id, event)}
+                   onChange={(event) => {
+                  handleChangeInput(inputField.id, event);
+                  if (props.onChange) {
+                  }
+                }}
                   label="Employement type (Not compulsory)"
                   name="employementType"
                 >
@@ -223,7 +218,11 @@ export default function PensionForm(props) {
                   format="MM/yyyy"
                   name="startDate"
                   value={inputField.startDate}
-                  onChange={(event) => handleChangeInput(inputField.id, event)}
+                  onChange={(event) => {
+                  handleChangeInput(inputField.id, event);
+                  if (props.onChange) {
+                  }
+                }}
                   KeyboardButtonProps={{
                     "aria-label": "change date",
                   }}
@@ -239,7 +238,11 @@ export default function PensionForm(props) {
                   format="MM/yyyy"
                   name="endDate"
                   value={inputField.endDate}
-                  onChange={(event) => handleChangeInput(inputField.id, event)}
+                   onChange={(event) => {
+                  handleChangeInput(inputField.id, event);
+                  if (props.onChange) {
+                  }
+                }}
                   KeyboardButtonProps={{
                     "aria-label": "change date",
                   }}
@@ -270,10 +273,10 @@ export default function PensionForm(props) {
     return (
       <div className="pensionForm-container">
         <div>
-          {inputFields.map((inputField) => (
+        {props.values.pensions.map((inputField) => (
             <div key={inputField.id}>
               <h2>Set up your Pension Searches</h2>
-              <h3>Pension search {inputFields.length}</h3>
+              <h3>Pension search </h3>
               <Box display="flex">
                 <div className="title-container">
                   <Box display="flex"></Box>

@@ -6,6 +6,7 @@ import ProgressBar from "../components/ProgressBar";
 import PensionForm from "../components/PensionForm";
 import SubmitForm from "../components/SumbmitForm";
 import Footer from "../components/footer";
+import { v4 as uuidv4 } from "uuid";
 
 import "./raindrop.css";
 
@@ -28,7 +29,6 @@ const initialValues = {
 export default function Raindrop() {
   const [values, setValues] = useState(initialValues);
 
-  values.firstName = "..";
   values.pensions = [
     {
       id: uuidv4(),
@@ -44,18 +44,49 @@ export default function Raindrop() {
   const handleChange = (event) => {
     const { name, value } = event.target;
 
-    name = "pensions";
-    value = updatedPensions;
-
+/*     name = "pensions";
+    value = updatedPensions; */
     setValues({
       ...values,
       [name]: value,
     });
   };
+  const [errors, setErrors] = useState({});
+  const validate = () => {
+    let temp={}
+        temp.firstName= values.firstName ? "": "this field is required."
+        temp.lastName= values.lastName ? "": "this field is required."
+        temp.email= (/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ ).test(values.email) ? "": "email is not valid."
+        temp.postCode= values.postCode ? "": "this field is required."
+        temp.houseNumber= values.houseNumber ? "": "this field is required."
+        temp.adressLineOne= values.adressLineOne ? "": "this field is required."
+        temp.adressLineTwo= values.adressLineTwo ? "": "this field is required."
+        temp.city= values.city ? "": "this field is required."
+        temp.insuranceNumber= (/^(?!BG|GB|NK|KN|TN|NT|ZZ)[A-CEGHJ-PR-TW-Z][A-CEGHJ-NPR-TW-Z](?:\s*\d{2}){3}\s*[A-D]$/).test(values.insuranceNumber) ? "": "Please enter a valid NI number. This is 2 letters, followed by 6 digits followed by a final letter. For example AA123456C."
+        temp.password = (/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,50}$/).test(values.password) ?"": "Password should be between 8 and 50 chars and should contain 1 uppercase, 1 lowercase and 1 number"
+        setErrors({
+            ...temp
+        })
+
+        return Object.values(temp).every(x => x == "");
+
+}
+const handleSubmit= (event) => {
+    event.preventDefault()
+    console.log(errors)
+    if(validate()){
+        window.alert('testing...');
+        console.log(values);
+    }
+
+}
 
   return (
     <div className="raindrop">
-      <Header onChange={handleChange} values={values} errors={errors} />
+      <Header
+      onChange={handleChange}
+      values={values}
+      errors={errors} />
 
       <ProgressBar
         postCode={values.postCode}
@@ -64,8 +95,6 @@ export default function Raindrop() {
         adressLineTwo={values.adressLineTwo}
         city={values.city}
         insuranceNumber={values.insuranceNumber}
-        pensionProvider={values.pensionSearch.pensionProvider}
-        planNumber={values.pensionSearch.planNumber}
         email={values.email}
         password={values.password}
       />
@@ -77,7 +106,9 @@ export default function Raindrop() {
         errors={errors}
       />
 
-      <PensionForm values={values} onChange={handleChange} />
+      <PensionForm 
+      values={values} 
+      onChange={handleChange} />
 
       {/*             <PensionBar
                 pensionProvider={values.pensionSearch.pensionProvider}
